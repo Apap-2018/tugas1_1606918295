@@ -98,16 +98,12 @@ public class PegawaiModel implements Serializable {
 	public double getGaji() {
 		double gajiUtama = 0;
 		double tunjangan = this.instansi.getProvinsi().getPersentaseTunjangan();
-		if(listJabatan.size()>1) {
-			JabatanModel max = Collections.max(listJabatan, pegawaiComparator);
-			System.out.println(max.getGajiPokok());
-			System.out.println(listJabatan.get(0).getGajiPokok());
-			System.out.println(listJabatan.get(1).getGajiPokok());
-			gajiUtama = max.getGajiPokok() + ((tunjangan/100)*max.getGajiPokok());
-		} else {
-			gajiUtama = listJabatan.get(0).getGajiPokok() + ((tunjangan/100)*listJabatan.get(0).getGajiPokok());
+		for(JabatanModel jabatan : getListJabatan()) {
+			if(gajiUtama < jabatan.getGajiPokok()) {
+				gajiUtama = jabatan.getGajiPokok();
+			}
 		}
-		return gajiUtama;
+		return gajiUtama + ((tunjangan / 100) * gajiUtama);
 	}
 	
 	public long getId() {

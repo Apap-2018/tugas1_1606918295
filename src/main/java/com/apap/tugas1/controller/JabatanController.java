@@ -61,10 +61,9 @@ public class JabatanController {
 		return "update-jabatan";
 	}
 	
-	@RequestMapping(value = "/jabatan/ubah/{id_jabatan}", method = RequestMethod.POST)
-	private String updateJabatanSubmit(@ModelAttribute JabatanModel jabatanBaru, 
-										@PathVariable(value="id_jabatan") String id_jabatan, Model model) {
-		jabatanService.updateJabatan(Long.parseLong(id_jabatan), jabatanBaru);
+	@RequestMapping(value = "/jabatan/ubah", method = RequestMethod.POST)
+	private String updateJabatanSubmit(@ModelAttribute JabatanModel jabatanBaru, Model model) {
+		jabatanService.updateJabatan(jabatanBaru);
 		model.addAttribute("nama", jabatanBaru.getNama());
 		return "update-jabatan-sukses";
 	}

@@ -1,5 +1,6 @@
 package com.apap.tugas1.service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -41,8 +42,20 @@ public class PegawaiServiceImpl implements PegawaiService {
 	private JabatanPegawaiDb jabatanPegawaiDb;
 	
 	@Override
-	public void addPegawai(PegawaiModel pegawai) {
+	public PegawaiModel addPegawai(PegawaiModel pegawai) {
+	
+		pegawai.setInstansi(instansiDb.getOne(pegawai.getInstansi().getId()));
+		
+		List<JabatanModel> jabatanList = new ArrayList<>();
+		for(JabatanModel jabatan : pegawai.getListJabatan()) {
+			jabatanList.add(jabatanDb.findJabatanById(jabatan.getId()));
+		}
+		
+		pegawai.setListJabatan(jabatanList);
+		pegawai.setNip(this.generateNipForPegawai(pegawai));
+		
 		pegawaiDb.save(pegawai);
+		return pegawai;
 	}
 	
 	@Override
@@ -82,15 +95,26 @@ public class PegawaiServiceImpl implements PegawaiService {
 	}
 	
 	@Override
-	public void updatePegawai(String nip, PegawaiModel pegawai) {
-		PegawaiModel pegawaiLama = this.getPegawaiByNip(nip);
-		pegawaiLama.setInstansi(pegawai.getInstansi());
+	public PegawaiModel ubahPegawai(PegawaiModel pegawai) {
+		PegawaiModel pegawaiLama = this.pegawaiDb.getOne(pegawai.getId());
+		
+		pegawaiLama.setInstansi(instansiDb.getOne(pegawai.getInstansi().getId()));
 		pegawaiLama.setNama(pegawai.getNama());
-		pegawaiLama.setNip(pegawai.getNip());
+		
 		pegawaiLama.setTahunMasuk(pegawai.getTahunMasuk());
 		pegawaiLama.setTanggalLahir(pegawai.getTanggalLahir());
 		pegawaiLama.setTempatLahir(pegawai.getTempatLahir());
-		pegawaiLama.setListJabatan(pegawai.getListJabatan());
+		
+		List<JabatanModel> jabatanList = new ArrayList<>();
+		for(JabatanModel jabatan : pegawai.getListJabatan()) {
+			jabatanList.add(jabatanDb.findJabatanById(jabatan.getId()));
+		}
+		
+		pegawaiLama.setListJabatan(jabatanList);
+		pegawaiLama.setNip(this.generateNipForPegawai(pegawaiLama));
+		
+		pegawaiDb.save(pegawaiLama);
+		return pegawaiLama;
 	}
 	
 	@Override
@@ -137,5 +161,41 @@ public class PegawaiServiceImpl implements PegawaiService {
 			}
 		}
 		return list;
+	}
+	
+	public String generateNipForPegawai(PegawaiModel pegawai) {
+        Long instansiDigit = pegawai.getInstansi().getId();
+
+
+        LocalDate tanggalLahir = pegawai.getTanggalLahir().toLocalDate();
+        int day = tanggalLahir.getDayOfMonth();
+        int month = tanggalLahir.getMonthValue();
+        int year = tanggalLahir.getYear() % 100; // get last two digit
+
+
+        String tanggalLahirDigit = Integer.toString(year);
+        tanggalLahirDigit = (month < 10 ? "0" + month : month) + tanggalLahirDigit;
+        tanggalLahirDigit = (day < 10 ? "0" + day : day) + tanggalLahirDigit;
+
+
+        String nipPegawaiWithoutSequence = instansiDigit + tanggalLahirDigit + pegawai.getTahunMasuk();
+
+
+        int totalPegawaiByTahunMasuk = this.pegawaiDb.countByNipStartingWith(nipPegawaiWithoutSequence) + 1;
+        String seqDigit = totalPegawaiByTahunMasuk < 10 ?
+                "0" + totalPegawaiByTahunMasuk :
+                Integer.toString(totalPegawaiByTahunMasuk);
+
+
+        return nipPegawaiWithoutSequence + seqDigit;
+    }
+	
+	public List<PegawaiModel> cariPegawai(Long idInstansi, Long idProvinsi, Long idJabatan) {
+		if(idInstansi == null && idProvinsi == null && idJabatan == null) {
+			return pegawaiDb.findAll();
+		} else {
+			return pegawaiDb.findDistinctByInstansiIdOrInstansi_ProvinsiIdOrListJabatan_Id(idInstansi, idProvinsi, idJabatan);
+
+		}
 	}
 }	

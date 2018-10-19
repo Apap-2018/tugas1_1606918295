@@ -14,16 +14,17 @@ import com.apap.tugas1.model.PegawaiModel;
  */
 
 public interface PegawaiService {
-	void addPegawai (PegawaiModel pegawai);
+	PegawaiModel addPegawai (PegawaiModel pegawai);
 	void deletePegawai (PegawaiModel pegawai);
 	void updatePegawai (PegawaiModel pegawai);
 	Optional<PegawaiModel> getPegawaiDetailById(Long id);
 	PegawaiModel getPegawaiByNip (String nip);
 	List<PegawaiModel> findByTahunMasukAndInstansi (String tahunMasuk, InstansiModel instansi);
 	void deleteListElement(List<PegawaiModel> listPegawai, int tahunLahir);
-	void updatePegawai(String nip, PegawaiModel pegawai);
+	PegawaiModel ubahPegawai(PegawaiModel pegawai);
 	void deleteListJabatan(List<JabatanModel> listJabatan, Long id);
 	List<PegawaiModel> findByInstansi(InstansiModel instansi);
 	int findJabatanList(List<JabatanModel> listJabatan, Long id);
 	List<PegawaiModel> getFilterPegawai(String idInstansi, String idJabatan);
+	List<PegawaiModel> cariPegawai(Long idInstansi, Long idProvinsi, Long idJabatan);
 }

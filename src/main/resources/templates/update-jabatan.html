@@ -12,25 +12,26 @@
 		<nav th:replace="fragments/fragment :: navbar"></nav>
 		<div id="Content" class="container-full-bg">
 		<h2>Ubah Jabatan</h2>
-		<form th:action="@{'/jabatan/ubah/' + ${jabatan.id}}" th:object="${jabatan}" method="POST">
+		<form th:action="@{/jabatan/ubah}" th:object="${jabatan}" method="POST">
+			<input hidden th:field="*{id}">
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="nama">Nama : </label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="nama" name="nama" th:fields="*{nama}" th:value="${jabatan.nama}">
+				<input type="text" class="form-control" id="nama" th:field="*{nama}">
 			</div>	
 			</div>
 			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="deskripsi">Deskripsi : </label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="deskripsi" name="deskripsi" th:fields="*{deskripsi}" th:value="${jabatan.deskripsi">
+				<input type="text" class="form-control" id="deskripsi" th:field="*{deskripsi}">
 			</div>	
 			</div>
 			
 			<div class="form-group">
 				<label class="control-label col-sm-2" for="gajiPokok">Gaji Pokok : </label>
 			<div class="col-sm-10">
-				<input type="text" class="form-control" id="gajiPokok" name="gajiPokok" th:fields="*{gajiPokok}" th:value="${jabatan.gajiPokok}">
+				<input type="text" class="form-control" id="gajiPokok" th:field="*{gajiPokok}">
 			</div>	
 			</div>
 				
