@@ -1,7 +1,6 @@
 package com.apap.tugas1.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
@@ -113,23 +112,43 @@ public class PegawaiController {
 	}
 	
 	@RequestMapping(value = "/pegawai/cari", method = RequestMethod.GET)
-	private String findPegawai(@RequestParam(value="provinsi", required=false) Long idProvinsi,
-								@RequestParam(value="instansi", required=false) Long idInstansi,
-								@RequestParam(value="jabatan", required=false) Long idJabatan, Model model) {
-		
+	private String findPegawai(Model model) {
 		List<ProvinsiModel> daftarProvinsi = provinsiService.findAllProvinsi();
 		List<JabatanModel> daftarJabatan = jabatanService.findAllJabatan();
 		List<InstansiModel> daftarInstansi = instansiService.findAllInstansi();
-		
+
 		model.addAttribute("listOfProvinsi", daftarProvinsi);
 		model.addAttribute("listOfJabatan", daftarJabatan);
 		model.addAttribute("listOfInstansi", daftarInstansi);
-		model.addAttribute("listPegawai", pegawaiService.cariPegawai(idInstansi, idProvinsi, idJabatan));
+
 		return "cari-pegawai";
 	}
 	
-
+	@RequestMapping(value = "/pegawai/cari", params = {"cari"}, method = RequestMethod.POST)
+	private String cariPegawaiList(@ModelAttribute PegawaiModel pegawaiBaru, @RequestParam(value="provinsi", required=false) String idProvinsi,
+			@RequestParam(value="instansi", required=false) String idInstansi,
+			@RequestParam(value="jabatan", required=false) String idJabatan, Model model) {
 	
+		InstansiModel instansi = instansiService.findById(Long.parseLong(idInstansi));
+		JabatanModel jabatan = jabatanService.getJabatanDetailById(Long.parseLong(idJabatan));
+		List<PegawaiModel> listPegawai = pegawaiService.getFilterPegawai(idInstansi, idJabatan);	
+
+		model.addAttribute("nama",  instansi.getNama());
+		model.addAttribute("namaJabatan", jabatan.getNama());
+		model.addAttribute("listPegawai",  listPegawai);
+
+		List<ProvinsiModel> daftarProvinsi = provinsiService.findAllProvinsi();
+		List<JabatanModel> daftarJabatan = jabatanService.findAllJabatan();
+		List<InstansiModel> daftarInstansi = instansiService.findAllInstansi();
+
+		model.addAttribute("listOfProvinsi", daftarProvinsi);
+		model.addAttribute("listOfJabatan", daftarJabatan);
+		model.addAttribute("listOfInstansi", daftarInstansi);
+
+		return "cari-pegawai";
+	}
+		
+
 	@RequestMapping(value = "/pegawai/termuda-tertua/", method = RequestMethod.GET)
 	private String termudaTertua(@RequestParam("instansi") Long id, @ModelAttribute PegawaiModel pegawaiBaru, Model model) {
 		InstansiModel instansi = instansiService.findById(id);

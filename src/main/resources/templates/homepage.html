@@ -35,7 +35,7 @@
 		
 		<br>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-10">
 				<div class="card">
 					<div class="card-header">
 						<h2>Lihat Detail Jabatan</h2>
@@ -48,6 +48,7 @@
 										<option th:each="jabatan : ${listOfJabatan}" th:value="${jabatan.id}" th:text="${jabatan.nama}" name="jabatan"></option>									
 									</select>
 								</div>
+								<p></p>
 							<button type="submit" class="btn btn-primary">Lihat</button>
 						</div>
 					</form>
@@ -57,7 +58,7 @@
 		
 		<br>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-10">
 				<div class="card">
 					<div class="card-header">
 						<h2>Lihat Pegawai Tertua Termuda</h2>
@@ -70,6 +71,7 @@
 										<option th:each="instansi : ${listOfInstansi}" th:value="${instansi.id}" th:text="${instansi.nama}" name="instansi"></option>									
 									</select>
 								</div>
+								<p></p>
 							<button type="submit" class="btn btn-primary">Lihat</button>
 						</div>
 					</form>

@@ -15,7 +15,7 @@
 		<div class="row">
 			<div class="col">
 				<h2>Data Pegawai Tertua</h2>
-				<table>
+				<table class="table">
 					<tbody>
 						<tr>
 							<td scope="row">NIP</td>
@@ -50,42 +50,44 @@
 			</div>
 		</div>
 	</div>
-	
-	<div class="row">
+	<br>
+	<div class="container-fluid">
+		<div class="row">
 			<div class="col">
-			<h2>Data Pegawai Termuda</h2>
-			<table>
-				<tbody>
-					<tr>
-						<td scope="row">NIP</td>
-						<td th:value="${pegawaiTermuda.getNip()}" th:text="${pegawaiTermuda.getNip()}"></td>
-					</tr>
-					<tr>
-						<td scope="row">Nama</td>
-						<td th:value="${pegawaiTermuda.getNama()}" th:text="${pegawaiTermuda.getNama()}"></td>
-					</tr>
-					<tr>
-						<td scope="row">Tempat Lahir</td>
-						<td th:value="${pegawaiTermuda.getTempatLahir()}" th:text="${pegawaiTermuda.getTempatLahir()}"></td>
-					</tr>
-					<tr>
-						<td scope="row">Tanggal Lahir</td>
-						<td th:value="${pegawaiTermuda.getTanggalLahir()}" th:text="${pegawaiTermuda.getTanggalLahir()}"></td>
-					</tr>
-					<tr>
-						<td scope="row">Tahun Masuk</td>
-						<td th:value="${pegawaiTermuda.getTahunMasuk()}" th:text="${pegawaiTermuda.getTahunMasuk()}"></td>
-					</tr>
-					<tr>
-						<td scope="row">Nama Instansi</td>
-						<td th:text="${namaInstansiTermuda} + ' - ' + ${namaProvinsiTermuda}"></td>
-					</tr>
-					<tr th:each="jabatan : ${listJabatanTermuda}">
-						<td scope="row">Jabatan</td>
-						<td th:value="${jabatan.getNama()}" th:text="${jabatan.getNama()}"></td>
-					</tr>
-				</tbody>
-			</table>
+				<h2>Data Pegawai Termuda</h2>
+				<table class="table">
+					<tbody>
+						<tr>
+							<td scope="row">NIP</td>
+							<td th:value="${pegawaiTermuda.getNip()}" th:text="${pegawaiTermuda.getNip()}"></td>
+						</tr>
+						<tr>
+							<td scope="row">Nama</td>
+							<td th:value="${pegawaiTermuda.getNama()}" th:text="${pegawaiTermuda.getNama()}"></td>
+						</tr>
+						<tr>
+							<td scope="row">Tempat Lahir</td>
+							<td th:value="${pegawaiTermuda.getTempatLahir()}" th:text="${pegawaiTermuda.getTempatLahir()}"></td>
+						</tr>
+						<tr>
+							<td scope="row">Tanggal Lahir</td>
+							<td th:value="${pegawaiTermuda.getTanggalLahir()}" th:text="${pegawaiTermuda.getTanggalLahir()}"></td>
+						</tr>
+						<tr>
+							<td scope="row">Tahun Masuk</td>
+							<td th:value="${pegawaiTermuda.getTahunMasuk()}" th:text="${pegawaiTermuda.getTahunMasuk()}"></td>
+						</tr>
+						<tr>
+							<td scope="row">Nama Instansi</td>
+							<td th:text="${namaInstansiTermuda} + ' - ' + ${namaProvinsiTermuda}"></td>
+						</tr>
+						<tr th:each="jabatan : ${listJabatanTermuda}">
+							<td scope="row">Jabatan</td>
+							<td th:value="${jabatan.getNama()}" th:text="${jabatan.getNama()}"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
 		</div>
 	</div>
 </body>

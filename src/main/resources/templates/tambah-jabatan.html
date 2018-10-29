@@ -14,7 +14,7 @@
 		<h2>Tambah Jabatan</h2>
 		<form class="form-horizontal" th:action="@{/jabatan/tambah}" th:object="${jabatan}" method="POST">
 			<div class="form-group">
-				<label class="control-label col-sm-2" for="nama">Nama : </label>
+				<label class="control-label col-sm-2" for="nama">Nama Jabatan : </label>
 			<div class="col-sm-10">
 				<input type="text" class="form-control" id="nama" name="nama" th:fields="*{nama}">
 			</div>	
