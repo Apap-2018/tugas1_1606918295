@@ -26,5 +26,5 @@ public interface PegawaiService {
 	List<PegawaiModel> findByInstansi(InstansiModel instansi);
 	int findJabatanList(List<JabatanModel> listJabatan, Long id);
 	List<PegawaiModel> getFilterPegawai(String idInstansi, String idJabatan);
-	List<PegawaiModel> cariPegawai(Long idInstansi, Long idProvinsi, Long idJabatan);
+//	List<PegawaiModel> cariPegawai(Long idInstansi, Long idProvinsi, Long idJabatan);
 }

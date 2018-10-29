@@ -190,12 +190,12 @@ public class PegawaiServiceImpl implements PegawaiService {
         return nipPegawaiWithoutSequence + seqDigit;
     }
 	
-	public List<PegawaiModel> cariPegawai(Long idInstansi, Long idProvinsi, Long idJabatan) {
-		if(idInstansi == null && idProvinsi == null && idJabatan == null) {
-			return pegawaiDb.findAll();
-		} else {
-			return pegawaiDb.findDistinctByInstansiIdOrInstansi_ProvinsiIdOrListJabatan_Id(idInstansi, idProvinsi, idJabatan);
-
-		}
-	}
+//	public List<PegawaiModel> cariPegawai(Long idInstansi, Long idProvinsi, Long idJabatan) {
+//		if(idInstansi == null && idProvinsi == null && idJabatan == null) {
+//			return pegawaiDb.findAll();
+//		} else {
+//			return pegawaiDb.findDistinctByInstansiIdOrInstansi_ProvinsiIdOrListJabatan_Id(idInstansi, idProvinsi, idJabatan);
+//
+//		}
+//	}
 }	
